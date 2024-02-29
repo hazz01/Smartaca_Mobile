@@ -29,7 +29,7 @@ class _CahayaState extends State<Cahaya> {
   void initState() {
     super.initState();
     // ignore: deprecated_member_use
-    final temperatureRef = database.reference().child('Device1/Cahaya');
+    final temperatureRef = database.reference().child('Smartaca/StatusCahaya');
     temperatureRef.onValue.listen((event) {
       if (event.snapshot.exists) {
         setState(() {
@@ -43,15 +43,18 @@ class _CahayaState extends State<Cahaya> {
       }
     });
 
-    final lampPowerRef = database.reference().child('Device1/Lamp');
+    final lampPowerRef = database.reference().child('lampu');
     lampPowerRef.onValue.listen((event) {
       if (event.snapshot.exists) {
+        int lampPowerInt = event.snapshot.value as int;
         setState(() {
-          lampPower = event.snapshot.value as bool;
+          // peltierPower = event.snapshot.value as bool
+          lampPower = (lampPowerInt == 1);
+          debugPrint("[Cahaya] Lampu: $lampPower");
         });
       } else {
         if (kDebugMode) {
-          print('No Data Available.');
+          print('[Cahaya] Lampu: No Data Available.');
         }
       }
     });
@@ -150,9 +153,12 @@ class _CahayaState extends State<Cahaya> {
                         child: Switch(
                           value: lampPower,
                           onChanged: (value) {
+                            final lampPowerRef =
+                                database.reference().child('lampu');
+                            lampPowerRef.set(value ? 1 : 0);
                             // Update data Firebase saat switch diubah
-                            final lampPowerRef = database.reference().child('Device1/Lamp');
-                            lampPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
+                            // final lampPowerRef = database.reference().child('Device1/Lamp');
+                            // lampPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
                           },
                         ),
                       ),

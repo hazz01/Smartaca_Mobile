@@ -30,10 +30,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // ignore: deprecated_member_use
-    final temperatureRef = database.reference().child('Device1/Temp');
-    final humidRef = database.reference().child('Device1/Humid');
+    final temperatureRef = database.reference().child('Smartaca/Suhu');
+    final humidRef = database.reference().child('Smartaca/SoilPercent');
     final moistRef = database.reference().child('Device1/Moist');
-    final lightRef = database.reference().child('Device1/Light');
+    final lightRef = database.reference().child('Smartaca/StatusCahaya');
 
     temperatureRef.onValue.listen((event) {
       if (event.snapshot.exists) {
@@ -502,7 +502,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       RichText(
                         text: const TextSpan(
-                          text: 'Rp, 20.000',
+                          text: 'Rp, 75.000',
                           style: TextStyle(color: Colors.green),
                         ),
                       ),
@@ -585,7 +585,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       RichText(
                         text: const TextSpan(
-                          text: 'Kondisi',
+                          text: 'Umur',
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -594,7 +594,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       RichText(
                         text: const TextSpan(
-                          text: 'Aman',
+                          text: '9 Hari',
                           style: TextStyle(color: Colors.green),
                         ),
                       ),

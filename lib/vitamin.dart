@@ -43,11 +43,14 @@ class _VitaminState extends State<Vitamin> {
       }
     });
 
-    final peltierPowerRef = database.reference().child('Device1/veltier');
+    final peltierPowerRef = database.reference().child('vitamin');
     peltierPowerRef.onValue.listen((event) {
       if (event.snapshot.exists) {
+        int peltierPowerInt = event.snapshot.value as int;
         setState(() {
-          peltierPower = event.snapshot.value as bool;
+          // peltierPower = event.snapshot.value as bool
+          peltierPower = (peltierPowerInt == 1);
+          debugPrint(": $peltierPower");
         });
       } else {
         if (kDebugMode) {
@@ -150,9 +153,12 @@ class _VitaminState extends State<Vitamin> {
                         child: Switch(
                           value: peltierPower,
                           onChanged: (value) {
+                            final peltierPowerRef =
+                                database.reference().child('vitamin');
+                            peltierPowerRef.set(value ? 1 : 0);
                             // Update data Firebase saat switch diubah
-                            final peltierPowerRef = database.reference().child('Device1/veltier');
-                            peltierPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
+                            // final peltierPowerRef = database.reference().child('Device1/veltier');
+                            // peltierPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
                           },
                         ),
                       ),

@@ -28,7 +28,7 @@ class _TemperatureState extends State<Temperature> {
   void initState() {
     super.initState();
     // ignore: deprecated_member_use
-    final temperatureRef = database.reference().child('Device1/Temp');
+    final temperatureRef = database.reference().child('Smartaca/Suhu');
     temperatureRef.onValue.listen((event) {
       if (event.snapshot.exists) {
         setState(() {
@@ -37,20 +37,24 @@ class _TemperatureState extends State<Temperature> {
         });
       } else {
         if (kDebugMode) {
-          print('No Data Available.');
+          print('Temp: No Data Available.');
         }
       }
     });
 
-    final peltierPowerRef = database.reference().child('Device1/Peltier');
+    final peltierPowerRef = database.reference().child('peltier');
     peltierPowerRef.onValue.listen((event) {
       if (event.snapshot.exists) {
+
+        int peltierPowerInt = event.snapshot.value as int;
         setState(() {
-          peltierPower = event.snapshot.value as bool;
+          // peltierPower = event.snapshot.value as bool
+          peltierPower = (peltierPowerInt == 1);
+          debugPrint(": $peltierPower");
         });
       } else {
         if (kDebugMode) {
-          print('No Data Available.');
+          print('Peltier: No Data Available.');
         }
       }
     });
@@ -150,8 +154,9 @@ class _TemperatureState extends State<Temperature> {
                           value: peltierPower,
                           onChanged: (value) {
                             // Update data Firebase saat switch diubah
-                            final peltierPowerRef = database.reference().child('Device1/Peltier');
-                            peltierPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
+                            final peltierPowerRef =
+                                database.reference().child('peltier');
+                            peltierPowerRef.set(value ? 1 : 0); // Set nilai di Firebase sesuai nilai switch
                           },
                         ),
                       ),
@@ -214,7 +219,10 @@ class _TemperatureState extends State<Temperature> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.green,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.green,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -230,7 +238,10 @@ class _TemperatureState extends State<Temperature> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -246,7 +257,10 @@ class _TemperatureState extends State<Temperature> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -262,7 +276,10 @@ class _TemperatureState extends State<Temperature> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
             ],
           ),

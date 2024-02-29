@@ -30,7 +30,7 @@ class _WaterDischargeState extends State<WaterDischarge> {
   void initState() {
     super.initState();
     // ignore: deprecated_member_use
-    final temperatureRef = database.reference().child('Device1/Humid');
+    final temperatureRef = database.reference().child('Smartaca/SoilPercent');
     temperatureRef.onValue.listen((event) {
       if (event.snapshot.exists) {
         setState(() {
@@ -44,13 +44,20 @@ class _WaterDischargeState extends State<WaterDischarge> {
       }
     });
 
-    final pumpPowerRef = database.reference().child('Device1/Pump');
+    final pumpPowerRef = database.reference().child('pompa');
     pumpPowerRef.onValue.listen((event) {
       if (event.snapshot.exists) {
+        int pumpPowerInt = event.snapshot.value as int;
         setState(() {
-          pumpPower = event.snapshot.value as bool;
-          debugPrint("Pump: $pumpPower");
+          // peltierPower = event.snapshot.value as bool
+          pumpPower = (pumpPowerInt == 1);
+          debugPrint("[Water] Pump: $pumpPower");
         });
+        
+        // setState(() {
+        //   pumpPower = event.snapshot.value as bool;
+        //   debugPrint("Pump: $pumpPower");
+        // });
       } else {
         if (kDebugMode) {
           print('No Data Available.');
@@ -152,9 +159,12 @@ class _WaterDischargeState extends State<WaterDischarge> {
                         child: Switch(
                           value: pumpPower,
                           onChanged: (value) {
+                            final pumpPowerRef =
+                                database.reference().child('pompa');
+                            pumpPowerRef.set(value ? 1 : 0);
                             // Update data Firebase saat switch diubah
-                            final pumpPowerRef = database.reference().child('Device1/Pump');
-                            pumpPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
+                            // final pumpPowerRef = database.reference().child('Device1/Pump');
+                            // pumpPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
                           },
                         ),
                       ),
