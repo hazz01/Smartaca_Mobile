@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "324099954906",
+    "firebase_url": "https://smartacaveralpha-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "smartacaveralpha",
+    "storage_bucket": "smartacaveralpha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324099954906:android:424a782f61fd1d293c6de3",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1oLpYPAdStw8mRlbAWCRfM4ICbxhM18Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324099954906:android:98477080699b2a603c6de3",
+        "android_client_info": {
+          "package_name": "com.grounded.smartaca_alpha_6"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1oLpYPAdStw8mRlbAWCRfM4ICbxhM18Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
