@@ -13,28 +13,6 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Setting'),
-        leading: IconButton(
-          icon: const Icon(Icons.notifications_none_outlined),
-          iconSize: 30.0,
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Navigator.push(
-              // context,
-              // MaterialPageRoute(
-              //   builder: (context) => const setting(),
-              // ),
-              // );
-            },
-          ),
-        ],
-      ),
       body: Center(
         child: Stack(
           alignment: Alignment.center,

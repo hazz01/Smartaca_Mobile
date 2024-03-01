@@ -45,7 +45,6 @@ class _TemperatureState extends State<Temperature> {
     final peltierPowerRef = database.reference().child('peltier');
     peltierPowerRef.onValue.listen((event) {
       if (event.snapshot.exists) {
-
         int peltierPowerInt = event.snapshot.value as int;
         setState(() {
           // peltierPower = event.snapshot.value as bool
@@ -83,12 +82,45 @@ class _TemperatureState extends State<Temperature> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white, // Warna latar belakang AppBar
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 0),
+          child: Text(
+            'Alat IoT',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.notifications_none_outlined,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // Tambahkan logika aksi untuk ikon akun di sini
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: const EdgeInsets.only(top: 55),
+              margin: const EdgeInsets.only(top: 10),
               child: const Text(
                 'Kipas',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
@@ -117,8 +149,8 @@ class _TemperatureState extends State<Temperature> {
                 color: Colors.black54),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 30.0),
-            margin: const EdgeInsets.fromLTRB(40.0, 70.0, 40.0, 40.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 20.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.0),
@@ -156,7 +188,9 @@ class _TemperatureState extends State<Temperature> {
                             // Update data Firebase saat switch diubah
                             final peltierPowerRef =
                                 database.reference().child('peltier');
-                            peltierPowerRef.set(value ? 1 : 0); // Set nilai di Firebase sesuai nilai switch
+                            peltierPowerRef.set(value
+                                ? 1
+                                : 0); // Set nilai di Firebase sesuai nilai switch
                           },
                         ),
                       ),

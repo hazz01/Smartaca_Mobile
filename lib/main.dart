@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
+import 'package:smartaca_alpha_6/Toko.dart';
 import 'package:smartaca_alpha_6/home_page.dart';
 import 'package:smartaca_alpha_6/iot.dart';
 import 'package:smartaca_alpha_6/setting_sawah.dart';
@@ -22,7 +23,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +31,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      
       home: const RootPage(),
     );
   }
@@ -38,13 +38,12 @@ class MyApp extends StatelessWidget {
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
-  
+
   @override
   State<RootPage> createState() => _RootPageState();
 }
 
 class _RootPageState extends State<RootPage> {
-  
   // List<Widget> pages = const [
   //   HomePage(),
   //   Settings(),
@@ -102,7 +101,9 @@ class _RootPageState extends State<RootPage> {
 }
 
 class BottomNavBarRaisedInsetFb1 extends StatefulWidget {
-  const BottomNavBarRaisedInsetFb1({Key? key, required this.currentPage, required this.onPageChanged}) : super(key: key);
+  const BottomNavBarRaisedInsetFb1(
+      {Key? key, required this.currentPage, required this.onPageChanged})
+      : super(key: key);
 
   final int currentPage;
   final Function(int) onPageChanged;
@@ -114,10 +115,7 @@ class BottomNavBarRaisedInsetFb1 extends StatefulWidget {
 
 class _BottomNavBarRaisedInsetFb1State
     extends State<BottomNavBarRaisedInsetFb1> {
-
-      
-
-      // int currentPage = 0;
+  // int currentPage = 0;
 
   //     void changePage(int index) {
   //   setState(() {
@@ -157,10 +155,9 @@ class _BottomNavBarRaisedInsetFb1State
     const shadowColor = Colors.grey; //color of Navbar shadow
     double elevation = 100; //Elevation of the bottom Navbar
 
-  print("currentPage: $widget.onPageChanged");
+    print("currentPage: $widget.onPageChanged");
 
     return BottomAppBar(
-      
       color: Colors.transparent,
       elevation: 0,
       child: Stack(
@@ -176,19 +173,22 @@ class _BottomNavBarRaisedInsetFb1State
             heightFactor: 0.6,
             child: FloatingActionButton(
                 backgroundColor: primaryColor,
-                child: const Icon(Icons.home),
+                child: const Icon(
+                  Icons.home,
+                ),
                 elevation: 0.1,
                 onPressed: () {
                   setState(() {
-                  widget.onPageChanged == 1;
-                });
+                    widget.onPageChanged == 1;
+                  });
                   Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration.zero, 
-                        pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
-                      ),
-                    );
+                    context,
+                    PageRouteBuilder(
+                      transitionDuration: Duration.zero,
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          HomePage(),
+                    ),
+                  );
                 }),
           ),
           SizedBox(
@@ -201,16 +201,16 @@ class _BottomNavBarRaisedInsetFb1State
                   icon: Icons.donut_small_sharp,
                   selected: widget.onPageChanged == 1,
                   onPressed: () {
-                  setState(() {
-                  // print("currentPage: $widget.onPageChanged");
-                  widget.onPageChanged == 1;
-                });
+                    setState(() {
+                      // print("currentPage: $widget.onPageChanged");
+                      widget.onPageChanged == 1;
+                    });
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration.zero, 
-                        pageBuilder: (context, animation, secondaryAnimation) => Temperature(),
-                    
+                        transitionDuration: Duration.zero,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            Temperature(),
                       ),
                     );
                   },
@@ -222,14 +222,15 @@ class _BottomNavBarRaisedInsetFb1State
                   icon: Icons.local_grocery_store_outlined,
                   selected: widget.onPageChanged == 2,
                   onPressed: () {
-                  setState(() {
-                  widget.onPageChanged == 2;
-                });
+                    setState(() {
+                      widget.onPageChanged == 2;
+                    });
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration.zero, 
-                        pageBuilder: (context, animation, secondaryAnimation) => Settings(),
+                        transitionDuration: Duration.zero,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            Toko(),
                       ),
                     );
                   },
@@ -242,16 +243,18 @@ class _BottomNavBarRaisedInsetFb1State
                     icon: Icons.notifications_none,
                     selected: widget.onPageChanged == 4,
                     onPressed: () {
-                  setState(() {
-                  widget.onPageChanged == 1;
-                });
+                      setState(() {
+                        widget.onPageChanged == 1;
+                      });
                       Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration.zero, 
-                        pageBuilder: (context, animation, secondaryAnimation) => Settings(),
-                      ),
-                    );
+                        context,
+                        PageRouteBuilder(
+                          transitionDuration: Duration.zero,
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  Settings(),
+                        ),
+                      );
                     },
                     defaultColor: secondaryColor,
                     selectedColor: primaryColor),
@@ -260,14 +263,15 @@ class _BottomNavBarRaisedInsetFb1State
                   icon: Icons.account_circle_outlined,
                   selected: widget.onPageChanged == 5,
                   onPressed: () {
-                  setState(() {
-                  widget.onPageChanged == 1;
-                });
+                    setState(() {
+                      widget.onPageChanged == 1;
+                    });
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration.zero, 
-                        pageBuilder: (context, animation, secondaryAnimation) => Settings(),
+                        transitionDuration: Duration.zero,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            Settings(),
                       ),
                     );
                   },

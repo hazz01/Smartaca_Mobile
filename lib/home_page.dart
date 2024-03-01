@@ -4,7 +4,6 @@ import 'main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'temperature.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -13,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-    FirebaseDatabase database = FirebaseDatabase.instance;
+  FirebaseDatabase database = FirebaseDatabase.instance;
 
   int currentPage = 0; // make sure it's initialized
 
@@ -24,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   String humid = 'Loading...';
   String moist = 'Loading...';
   String light = 'Loading...';
-
 
   @override
   void initState() {
@@ -106,13 +104,14 @@ class _HomePageState extends State<HomePage> {
   //   // database.reference().child('Device1/Peltier').onValue.drain();
   // }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text(
+          'Home Page',
+          style: TextStyle(color: Colors.black),
+        ),
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -120,15 +119,20 @@ class _HomePageState extends State<HomePage> {
               currentPage = 3;
             });
           },
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(
+            Icons.notifications_none_outlined,
+            color: Colors.black,
+          ),
         ),
         centerTitle: true,
+        backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
-            onPressed: () {
-              // Tambahkan logika aksi untuk ikon akun di sini
-            },
-            icon: const Icon(Icons.settings),
+            onPressed: () {},
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
@@ -212,13 +216,15 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: 'Penyebab',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                       RichText(
                         text: const TextSpan(
                           text: '-',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                       const SizedBox(
@@ -227,13 +233,13 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: 'Solusi',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                       RichText(
                         text: const TextSpan(
                           text: '-',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -263,7 +269,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.water_drop_outlined),
+                      const Icon(
+                        Icons.sunny_snowing,
+                        color: Colors.red,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -282,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: TextSpan(
                           text: '$temperature',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -306,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.grass),
+                      const Icon(Icons.grass, color: Colors.brown),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -325,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: TextSpan(
                           text: '$moist',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -349,7 +358,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.air),
+                      const Icon(
+                        Icons.air,
+                        color: Colors.lightBlue,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -368,7 +380,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: TextSpan(
                           text: '$humid',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -398,7 +410,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.light_mode_outlined),
+                      const Icon(
+                        Icons.light_mode_outlined,
+                        color: Colors.yellow,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -417,7 +432,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: TextSpan(
                           text: '$light',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -441,7 +456,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.filter_list),
+                      const Icon(
+                        Icons.filter_list,
+                        color: Colors.green,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -460,7 +478,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: '-',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -484,7 +502,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.data_exploration_outlined),
+                      const Icon(
+                        Icons.data_exploration_outlined,
+                        color: Colors.amber,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -503,7 +524,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: 'Rp, 75.000',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -533,7 +554,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.health_and_safety_outlined),
+                      const Icon(
+                        Icons.health_and_safety_outlined,
+                        color: Colors.teal,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -552,7 +576,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: '-',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -576,7 +600,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.access_alarm),
+                      const Icon(
+                        Icons.access_alarm,
+                        color: Colors.blueGrey,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -595,7 +622,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: '9 Hari',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.black54),
                         ),
                       ),
                     ],
@@ -605,7 +632,7 @@ class _HomePageState extends State<HomePage> {
                   width: 110,
                   height: 140,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey[400],
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
                     boxShadow: const [
@@ -619,7 +646,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.grid_view_rounded),
+                      const Icon(
+                        Icons.grid_view_rounded,
+                        color: Colors.white,
+                      ),
                       const SizedBox(
                           height:
                               8), // Add some space between the Icon and Text widgets
@@ -629,7 +659,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: const TextSpan(
                           text: 'Setting\nSawah',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ],

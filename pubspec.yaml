@@ -77,10 +77,19 @@ flutter:
     - images/Vitamin_Circle_Off.png
     - images/water CircleOn.png
     - images/Water circle off.png
-    - images/Pupuk Circle.png
-    - images/Pupuk CircleOff.png
     - images/Lamp Circle.png
-    - images/light Circle.png.
+    - images/light Circle.png
+    - images/pupukOff.png
+    - images/pupukOn (2).png
+    - images/SarumTangan.png
+    - images/sekopKeci.png
+    - images/garpuTanah.png
+    - images/Pupuk.png
+    - images/Vitamin.png
+    - images/PupukUrea.png
+
+
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

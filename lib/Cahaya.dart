@@ -83,12 +83,45 @@ class _CahayaState extends State<Cahaya> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white, // Warna latar belakang AppBar
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 0),
+          child: Text(
+            'Alat IoT',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.notifications_none_outlined,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // Tambahkan logika aksi untuk ikon akun di sini
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: const EdgeInsets.only(top: 55),
+              margin: const EdgeInsets.only(top: 10),
               child: const Text(
                 'Pencahayaan',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
@@ -117,8 +150,8 @@ class _CahayaState extends State<Cahaya> {
                 color: Colors.black54),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 30.0),
-            margin: const EdgeInsets.fromLTRB(40.0, 70.0, 40.0, 40.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 20.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.0),
@@ -160,6 +193,8 @@ class _CahayaState extends State<Cahaya> {
                             // final lampPowerRef = database.reference().child('Device1/Lamp');
                             // lampPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
                           },
+                          activeColor: Colors.yellow,
+                          inactiveThumbColor: Colors.white,
                         ),
                       ),
                     ),
@@ -186,7 +221,7 @@ class _CahayaState extends State<Cahaya> {
                     Container(
                       padding: const EdgeInsets.only(
                           top: 20, left: 0), // Atur jarak antara icon dan teks
-                      child: Text(   
+                      child: Text(
                         lampPower ? 'Lampu Nyala' : 'Lampu Mati',
                         style: TextStyle(
                           fontSize: 16.0,
@@ -221,7 +256,10 @@ class _CahayaState extends State<Cahaya> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -237,7 +275,10 @@ class _CahayaState extends State<Cahaya> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -253,7 +294,10 @@ class _CahayaState extends State<Cahaya> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -269,7 +313,10 @@ class _CahayaState extends State<Cahaya> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.green,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.green,
+                ),
               ),
             ],
           ),

@@ -53,7 +53,7 @@ class _WaterDischargeState extends State<WaterDischarge> {
           pumpPower = (pumpPowerInt == 1);
           debugPrint("[Water] Pump: $pumpPower");
         });
-        
+
         // setState(() {
         //   pumpPower = event.snapshot.value as bool;
         //   debugPrint("Pump: $pumpPower");
@@ -89,12 +89,45 @@ class _WaterDischargeState extends State<WaterDischarge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white, // Warna latar belakang AppBar
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 0),
+          child: Text(
+            'Alat IoT',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.notifications_none_outlined,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // Tambahkan logika aksi untuk ikon akun di sini
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: const EdgeInsets.only(top: 55),
+              margin: const EdgeInsets.only(top: 10),
               child: const Text(
                 'Pompa Air',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
@@ -107,7 +140,7 @@ class _WaterDischargeState extends State<WaterDischarge> {
             child: Container(
               margin: const EdgeInsets.only(top: 30),
               child: Image.asset(
-                peltierPower
+                pumpPower
                     ? 'images/water CircleOn.png'
                     : 'images/Water circle off.png',
               ),
@@ -123,8 +156,8 @@ class _WaterDischargeState extends State<WaterDischarge> {
                 color: Colors.black54),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 30.0),
-            margin: const EdgeInsets.fromLTRB(40.0, 70.0, 40.0, 40.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 20.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.0),
@@ -166,6 +199,8 @@ class _WaterDischargeState extends State<WaterDischarge> {
                             // final pumpPowerRef = database.reference().child('Device1/Pump');
                             // pumpPowerRef.set(value); // Set nilai di Firebase sesuai nilai switch
                           },
+                          activeColor: Colors.blue,
+                          inactiveThumbColor: Colors.white,
                         ),
                       ),
                     ),
@@ -186,17 +221,17 @@ class _WaterDischargeState extends State<WaterDischarge> {
                       padding: const EdgeInsets.only(top: 20),
                       child: Icon(
                         Icons.g_mobiledata_rounded,
-                        color: peltierPower ? Colors.blue : Colors.grey,
+                        color: pumpPower ? Colors.blue : Colors.grey,
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.only(
                           top: 20, left: 0), // Atur jarak antara icon dan teks
                       child: Text(
-                        peltierPower ? 'Pompa Nyala' : 'Pompa Mati',
+                        pumpPower ? 'Pompa Nyala' : 'Pompa Mati',
                         style: TextStyle(
                           fontSize: 16.0,
-                          color: peltierPower ? Colors.blue : Colors.grey,
+                          color: pumpPower ? Colors.blue : Colors.grey,
                         ),
                       ),
                     ),
@@ -227,7 +262,10 @@ class _WaterDischargeState extends State<WaterDischarge> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -243,7 +281,10 @@ class _WaterDischargeState extends State<WaterDischarge> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.green,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.green,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -259,7 +300,10 @@ class _WaterDischargeState extends State<WaterDischarge> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -275,7 +319,10 @@ class _WaterDischargeState extends State<WaterDischarge> {
                     ),
                   );
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.black38,
+                ),
               ),
             ],
           )

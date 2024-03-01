@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartaca_alpha_6/main.dart';
 
 class Toko extends StatefulWidget {
   const Toko({Key? key}) : super(key: key);
@@ -8,6 +9,8 @@ class Toko extends StatefulWidget {
 }
 
 class _TokoState extends State<Toko> {
+  var currentPage = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +21,31 @@ class _TokoState extends State<Toko> {
           child: Text(
             'Toko',
             style: TextStyle(
-                color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600),
+              color: Colors.black,
+            ),
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.notifications_none_outlined,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // Tambahkan logika aksi untuk ikon akun di sini
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,8 +72,8 @@ class _TokoState extends State<Toko> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: 200,
-                            height: 300,
+                            width: 150,
+                            height: 225,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(
@@ -70,9 +94,9 @@ class _TokoState extends State<Toko> {
                                         20), // Add some space between the Icon and Text widgets
                                 SizedBox(height: 5),
                                 Image.asset(
-                                  'images/image 20.png', // Path to your local image asset
-                                  width: 170, // Adjust width as needed
-                                  height: 170, // Adjust height as needed
+                                  'images/SarumTangan.png', // Path to your local image asset
+                                  width: 125, // Adjust width as needed
+                                  height: 125, // Adjust height as needed
                                 ),
                                 SizedBox(height: 5),
 
@@ -92,7 +116,7 @@ class _TokoState extends State<Toko> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.w500,
-                                                    fontSize: 17),
+                                                    fontSize: 15),
                                               ),
                                             ),
                                           ),
@@ -113,6 +137,7 @@ class _TokoState extends State<Toko> {
                                           Container(
                                             child: Icon(
                                               Icons.location_on_outlined,
+                                              size: 14,
                                               color: Colors.green,
                                             ),
                                           ),
@@ -122,7 +147,7 @@ class _TokoState extends State<Toko> {
                                             child: Text(
                                               'Malang',
                                               style: TextStyle(
-                                                fontSize: 16.0,
+                                                fontSize: 13.0,
                                               ),
                                             ),
                                           ),
@@ -155,7 +180,7 @@ class _TokoState extends State<Toko> {
                                             child: Icon(
                                               Icons.add_circle_outlined,
                                               color: Colors.green,
-                                              size: 35,
+                                              size: 20,
                                             ),
                                           ),
                                         ],
@@ -170,8 +195,8 @@ class _TokoState extends State<Toko> {
                             width: 30,
                           ),
                           Container(
-                            width: 200,
-                            height: 300,
+                            width: 150,
+                            height: 225,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(
@@ -192,9 +217,9 @@ class _TokoState extends State<Toko> {
                                         20), // Add some space between the Icon and Text widgets
                                 SizedBox(height: 5),
                                 Image.asset(
-                                  'images/image 20.png', // Path to your local image asset
-                                  width: 170, // Adjust width as needed
-                                  height: 170, // Adjust height as needed
+                                  'images/sekopKeci.png', // Path to your local image asset
+                                  width: 125, // Adjust width as needed
+                                  height: 125, // Adjust height as needed
                                 ),
                                 SizedBox(height: 5),
 
@@ -210,11 +235,11 @@ class _TokoState extends State<Toko> {
                                           Container(
                                             child: RichText(
                                               text: const TextSpan(
-                                                text: 'Sarung Tangan',
+                                                text: 'Sekop Kecil',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.w500,
-                                                    fontSize: 17),
+                                                    fontSize: 15),
                                               ),
                                             ),
                                           ),
@@ -235,6 +260,7 @@ class _TokoState extends State<Toko> {
                                           Container(
                                             child: Icon(
                                               Icons.location_on_outlined,
+                                              size: 14,
                                               color: Colors.green,
                                             ),
                                           ),
@@ -242,9 +268,9 @@ class _TokoState extends State<Toko> {
                                             padding: const EdgeInsets.only(
                                                 top: 2, left: 0), // Atur jar
                                             child: Text(
-                                              'Malang',
+                                              'Blitar',
                                               style: TextStyle(
-                                                fontSize: 16.0,
+                                                fontSize: 13.0,
                                               ),
                                             ),
                                           ),
@@ -266,7 +292,7 @@ class _TokoState extends State<Toko> {
                                             padding: const EdgeInsets.only(
                                                 top: 0, right: 50), // Atur jar
                                             child: const Text(
-                                              'Rp 12.500',
+                                              'Rp 40.000',
                                               style: TextStyle(
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.w400,
@@ -277,7 +303,7 @@ class _TokoState extends State<Toko> {
                                             child: Icon(
                                               Icons.add_circle_outlined,
                                               color: Colors.green,
-                                              size: 35,
+                                              size: 20,
                                             ),
                                           ),
                                         ],
@@ -305,8 +331,8 @@ class _TokoState extends State<Toko> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: 200,
-                                height: 300,
+                                width: 150,
+                                height: 225,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(
@@ -327,9 +353,9 @@ class _TokoState extends State<Toko> {
                                             20), // Add some space between the Icon and Text widgets
                                     SizedBox(height: 5),
                                     Image.asset(
-                                      'images/image 20.png', // Path to your local image asset
-                                      width: 170, // Adjust width as needed
-                                      height: 170, // Adjust height as needed
+                                      'images/Pupuk.png', // Path to your local image asset
+                                      width: 125, // Adjust width as needed
+                                      height: 125, // Adjust height as needed
                                     ),
                                     SizedBox(height: 5),
 
@@ -345,12 +371,12 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: RichText(
                                                   text: const TextSpan(
-                                                    text: 'Sarung Tangan',
+                                                    text: 'Pupuk Organik',
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        fontSize: 17),
+                                                        fontSize: 15),
                                                   ),
                                                 ),
                                               ),
@@ -371,6 +397,7 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: Icon(
                                                   Icons.location_on_outlined,
+                                                  size: 14,
                                                   color: Colors.green,
                                                 ),
                                               ),
@@ -379,9 +406,9 @@ class _TokoState extends State<Toko> {
                                                     top: 2,
                                                     left: 0), // Atur jar
                                                 child: Text(
-                                                  'Malang',
+                                                  'Surabaya',
                                                   style: TextStyle(
-                                                    fontSize: 16.0,
+                                                    fontSize: 13.0,
                                                   ),
                                                 ),
                                               ),
@@ -404,7 +431,7 @@ class _TokoState extends State<Toko> {
                                                     top: 0,
                                                     right: 50), // Atur jar
                                                 child: const Text(
-                                                  'Rp 12.500',
+                                                  'Rp 10.500',
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.w400,
@@ -415,7 +442,7 @@ class _TokoState extends State<Toko> {
                                                 child: Icon(
                                                   Icons.add_circle_outlined,
                                                   color: Colors.green,
-                                                  size: 35,
+                                                  size: 20,
                                                 ),
                                               ),
                                             ],
@@ -430,8 +457,8 @@ class _TokoState extends State<Toko> {
                                 width: 30,
                               ),
                               Container(
-                                width: 200,
-                                height: 300,
+                                width: 150,
+                                height: 225,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(
@@ -452,9 +479,9 @@ class _TokoState extends State<Toko> {
                                             20), // Add some space between the Icon and Text widgets
                                     SizedBox(height: 5),
                                     Image.asset(
-                                      'images/image 20.png', // Path to your local image asset
-                                      width: 170, // Adjust width as needed
-                                      height: 170, // Adjust height as needed
+                                      'images/garpuTanah.png', // Path to your local image asset
+                                      width: 125, // Adjust width as needed
+                                      height: 125, // Adjust height as needed
                                     ),
                                     SizedBox(height: 5),
 
@@ -470,12 +497,12 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: RichText(
                                                   text: const TextSpan(
-                                                    text: 'Sarung Tangan',
+                                                    text: 'Garpu Tanah',
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        fontSize: 17),
+                                                        fontSize: 15),
                                                   ),
                                                 ),
                                               ),
@@ -496,6 +523,7 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: Icon(
                                                   Icons.location_on_outlined,
+                                                  size: 14,
                                                   color: Colors.green,
                                                 ),
                                               ),
@@ -504,9 +532,9 @@ class _TokoState extends State<Toko> {
                                                     top: 2,
                                                     left: 0), // Atur jar
                                                 child: Text(
-                                                  'Malang',
+                                                  'Wagir',
                                                   style: TextStyle(
-                                                    fontSize: 16.0,
+                                                    fontSize: 13.0,
                                                   ),
                                                 ),
                                               ),
@@ -529,7 +557,7 @@ class _TokoState extends State<Toko> {
                                                     top: 0,
                                                     right: 50), // Atur jar
                                                 child: const Text(
-                                                  'Rp 12.500',
+                                                  'Rp 100.500',
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.w400,
@@ -540,7 +568,7 @@ class _TokoState extends State<Toko> {
                                                 child: Icon(
                                                   Icons.add_circle_outlined,
                                                   color: Colors.green,
-                                                  size: 35,
+                                                  size: 20,
                                                 ),
                                               ),
                                             ],
@@ -570,8 +598,8 @@ class _TokoState extends State<Toko> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: 200,
-                                height: 300,
+                                width: 150,
+                                height: 225,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(
@@ -592,9 +620,9 @@ class _TokoState extends State<Toko> {
                                             20), // Add some space between the Icon and Text widgets
                                     SizedBox(height: 5),
                                     Image.asset(
-                                      'images/image 20.png', // Path to your local image asset
-                                      width: 170, // Adjust width as needed
-                                      height: 170, // Adjust height as needed
+                                      'images/Vitamin.png', // Path to your local image asset
+                                      width: 125, // Adjust width as needed
+                                      height: 125, // Adjust height as needed
                                     ),
                                     SizedBox(height: 5),
 
@@ -610,12 +638,12 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: RichText(
                                                   text: const TextSpan(
-                                                    text: 'Sarung Tangan',
+                                                    text: 'Vitamin Tanaman',
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        fontSize: 17),
+                                                        fontSize: 15),
                                                   ),
                                                 ),
                                               ),
@@ -636,6 +664,7 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: Icon(
                                                   Icons.location_on_outlined,
+                                                  size: 14,
                                                   color: Colors.green,
                                                 ),
                                               ),
@@ -644,9 +673,9 @@ class _TokoState extends State<Toko> {
                                                     top: 2,
                                                     left: 0), // Atur jar
                                                 child: Text(
-                                                  'Malang',
+                                                  'Kalimantan',
                                                   style: TextStyle(
-                                                    fontSize: 16.0,
+                                                    fontSize: 13.0,
                                                   ),
                                                 ),
                                               ),
@@ -669,7 +698,7 @@ class _TokoState extends State<Toko> {
                                                     top: 0,
                                                     right: 50), // Atur jar
                                                 child: const Text(
-                                                  'Rp 12.500',
+                                                  'Rp 25.500',
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.w400,
@@ -680,7 +709,7 @@ class _TokoState extends State<Toko> {
                                                 child: Icon(
                                                   Icons.add_circle_outlined,
                                                   color: Colors.green,
-                                                  size: 35,
+                                                  size: 20,
                                                 ),
                                               ),
                                             ],
@@ -695,8 +724,8 @@ class _TokoState extends State<Toko> {
                                 width: 30,
                               ),
                               Container(
-                                width: 200,
-                                height: 300,
+                                width: 150,
+                                height: 225,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(
@@ -717,9 +746,9 @@ class _TokoState extends State<Toko> {
                                             20), // Add some space between the Icon and Text widgets
                                     SizedBox(height: 5),
                                     Image.asset(
-                                      'images/image 20.png', // Path to your local image asset
-                                      width: 170, // Adjust width as needed
-                                      height: 170, // Adjust height as needed
+                                      'images/PupukUrea.png', // Path to your local image asset
+                                      width: 125, // Adjust width as needed
+                                      height: 125, // Adjust height as needed
                                     ),
                                     SizedBox(height: 5),
 
@@ -735,12 +764,12 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: RichText(
                                                   text: const TextSpan(
-                                                    text: 'Sarung Tangan',
+                                                    text: 'Pupuk Urea',
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        fontSize: 17),
+                                                        fontSize: 15),
                                                   ),
                                                 ),
                                               ),
@@ -761,6 +790,7 @@ class _TokoState extends State<Toko> {
                                               Container(
                                                 child: Icon(
                                                   Icons.location_on_outlined,
+                                                  size: 14,
                                                   color: Colors.green,
                                                 ),
                                               ),
@@ -769,9 +799,9 @@ class _TokoState extends State<Toko> {
                                                     top: 2,
                                                     left: 0), // Atur jar
                                                 child: Text(
-                                                  'Malang',
+                                                  'Pare',
                                                   style: TextStyle(
-                                                    fontSize: 16.0,
+                                                    fontSize: 13.0,
                                                   ),
                                                 ),
                                               ),
@@ -794,7 +824,7 @@ class _TokoState extends State<Toko> {
                                                     top: 0,
                                                     right: 50), // Atur jar
                                                 child: const Text(
-                                                  'Rp 12.500',
+                                                  'Rp 50.500',
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.w400,
@@ -805,7 +835,7 @@ class _TokoState extends State<Toko> {
                                                 child: Icon(
                                                   Icons.add_circle_outlined,
                                                   color: Colors.green,
-                                                  size: 35,
+                                                  size: 20,
                                                 ),
                                               ),
                                             ],
@@ -827,6 +857,14 @@ class _TokoState extends State<Toko> {
             )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavBarRaisedInsetFb1(
+        currentPage: currentPage,
+        onPageChanged: (index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
       ),
     );
   }
