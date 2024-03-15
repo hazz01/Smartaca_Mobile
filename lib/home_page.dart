@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:smartaca_alpha_6/Setting.dart';
 import 'main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'temperature.dart';
@@ -128,7 +129,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ));
+            },
             icon: const Icon(
               Icons.settings,
               color: Colors.black,
@@ -148,13 +155,15 @@ class _HomePageState extends State<HomePage> {
                   height: 140,
                   decoration: BoxDecoration(
                     color: Colors.white,
+
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.green,
+                        spreadRadius: 0,
+                        blurRadius: 5,
                         offset: Offset(0, 2),
-                        blurRadius: 8,
                       ),
                     ],
                   ),
@@ -196,11 +205,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -213,6 +223,7 @@ class _HomePageState extends State<HomePage> {
                       //     height:
                       //         8), // Add some space between the Icon and Text widgets
                       // const SizedBox(height: 5,),
+
                       RichText(
                         text: const TextSpan(
                           text: 'Penyebab',
@@ -258,11 +269,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -304,11 +316,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -347,11 +360,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -399,11 +413,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -445,11 +460,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -491,11 +507,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -543,11 +560,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -589,11 +607,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -635,11 +654,12 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.grey[400],
                     borderRadius: BorderRadius.circular(
                         10), // Adjust the radius as needed
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
