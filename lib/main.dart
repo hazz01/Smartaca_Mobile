@@ -57,7 +57,7 @@ class _RootPageState extends State<RootPage> {
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       // appBar: AppBar(
       //   title: const Text('Water System'),
       //   automaticallyImplyLeading: false,
@@ -186,7 +186,7 @@ class _BottomNavBarRaisedInsetFb1State
                     PageRouteBuilder(
                       transitionDuration: Duration.zero,
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          HomePage(),
+                          const HomePage(),
                     ),
                   );
                 }),

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
-import 'main.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:smartaca_alpha_6/main.dart';
 import 'temperature.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,20 +15,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
-  int currentPage = 0; // make sure it's initialized
+  int currentPage = 0;
 
   bool peltierPower = false;
-  // int currentPage = 0;
 
   String temperature = 'Loading...';
   String humid = 'Loading...';
   String moist = 'Loading...';
   String light = 'Loading...';
+  String lightOut = 'Loading...';
 
   @override
   void initState() {
     super.initState();
-    // ignore: deprecated_member_use
     final temperatureRef = database.reference().child('Smartaca/Suhu');
     final humidRef = database.reference().child('Smartaca/SoilPercent');
     final moistRef = database.reference().child('Device1/Moist');
@@ -75,6 +74,11 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           light = event.snapshot.value.toString();
           debugPrint("[Home] Light: $light");
+          if (light == '1') {
+            lightOut = "Terang";
+          } else {
+            lightOut = "Gelap";
+          }
         });
       } else {
         if (kDebugMode) {
@@ -97,16 +101,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   // Hentikan event listener
-  //   // database.reference().child('Device1/Temp').onValue.drain();
-  //   // database.reference().child('Device1/Peltier').onValue.drain();
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final blockWidth = screenSize.width / 100;
+    final blockHeight = screenSize.height / 110;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -143,551 +143,142 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.green,
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: blockHeight * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(
-                        Icons.circle,
-                        color: Colors.green,
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.circle,
+                        iconColor: Colors.green,
+                        title: 'Kondisi',
+                        value: 'Aman',
+                        valueColor: Colors.green,
                       ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Kondisi',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Aman',
-                          style: TextStyle(color: Colors.green),
-                        ),
+                      _buildInfoCard(
+                        width: blockWidth * 60,
+                        height: blockHeight * 20,
+                        title: 'Penyebab',
+                        value: '-',
+                        additionalTitle: 'Solusi',
+                        additionalValue: '-',
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  width: 250,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  SizedBox(height: blockHeight * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // const Icon(Icons.access_alarm),
-                      // const SizedBox(
-                      //     height:
-                      //         8), // Add some space between the Icon and Text widgets
-                      // const SizedBox(height: 5,),
-
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Penyebab',
-                          style: TextStyle(
-                            color: Colors.black,
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.sunny_snowing,
+                        iconColor: Colors.red,
+                        title: 'Temperature',
+                        value: temperature,
+                      ),
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.grass,
+                        iconColor: Colors.brown,
+                        title: 'Lembap Tanah',
+                        value: moist,
+                      ),
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.air,
+                        iconColor: Colors.lightBlue,
+                        title: 'Lembap Udara',
+                        value: humid,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: blockHeight * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.light_mode_outlined,
+                        iconColor: Colors.yellow,
+                        title: 'Intens Cahaya',
+                        value: lightOut,
+                      ),
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.filter_list,
+                        iconColor: Colors.green,
+                        title: 'Luas Tanah',
+                        value: '-',
+                      ),
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.data_exploration_outlined,
+                        iconColor: Colors.amber,
+                        title: 'Harga Terkini',
+                        value: 'Rp, 75.000',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: blockHeight * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.health_and_safety_outlined,
+                        iconColor: Colors.teal,
+                        title: 'Pupuk',
+                        value: '-',
+                      ),
+                      _buildInfoCard(
+                        width: blockWidth * 30,
+                        height: blockHeight * 20,
+                        icon: Icons.access_alarm,
+                        iconColor: Colors.blueGrey,
+                        title: 'Umur',
+                        value: '9 Hari',
+                      ),
+                        GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Settings(),
                           ),
+                          );
+                        },
+                        child: _buildInfoCard(
+                          width: blockWidth * 30,
+                          height: blockHeight * 20,
+                          icon: Icons.grid_view_rounded,
+                          iconColor: Colors.white,
+                          title: 'Setting\nSawah',
+                          value: '',
+                          backgroundColor: Colors.grey[400]!,
+                          textColor: Colors.white,
                         ),
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: '-',
-                          style: TextStyle(color: Colors.black54),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Solusi',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: '-',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.sunny_snowing,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Temperature',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: '$temperature',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.grass, color: Colors.brown),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Lembap Tanah',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: '$moist',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.air,
-                        color: Colors.lightBlue,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Lembap Udara',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: '$humid',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.light_mode_outlined,
-                        color: Colors.yellow,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Intens Cahaya',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: '$light',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.filter_list,
-                        color: Colors.green,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Luas Tanah',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: '-',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.data_exploration_outlined,
-                        color: Colors.amber,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Harga Terkini',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Rp, 75.000',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.health_and_safety_outlined,
-                        color: Colors.teal,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Pupuk',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: '-',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.access_alarm,
-                        color: Colors.blueGrey,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Umur',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: '9 Hari',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 110,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.grid_view_rounded,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                          height:
-                              8), // Add some space between the Icon and Text widgets
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Setting\nSawah',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              );
+            },
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavBarRaisedInsetFb1(
@@ -703,10 +294,73 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-void main() {
-  runApp(MaterialApp(
-    home: HomePage(),
-  ));
+  Widget _buildInfoCard({
+    required double width,
+    required double height,
+    IconData? icon,
+    Color? iconColor,
+    required String title,
+    required String value,
+    Color? valueColor,
+    String? additionalTitle,
+    String? additionalValue,
+    Color backgroundColor = Colors.white,
+    Color textColor = Colors.black,
+  }) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 0,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, color: iconColor),
+            const SizedBox(height: 8),
+          ],
+          RichText(
+            text: TextSpan(
+              text: title,
+              style: TextStyle(color: textColor),
+            ),
+          ),
+          const SizedBox(height: 5),
+          RichText(
+            text: TextSpan(
+              text: value,
+              style: TextStyle(color: valueColor ?? Colors.black54),
+            ),
+          ),
+          if (additionalTitle != null && additionalValue != null) ...[
+            const SizedBox(height: 5),
+            RichText(
+              text: TextSpan(
+                text: additionalTitle,
+                style: TextStyle(color: textColor),
+              ),
+            ),
+            const SizedBox(height: 5),
+            RichText(
+              text: TextSpan(
+                text: additionalValue,
+                style: TextStyle(color: Colors.black54),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
 }
