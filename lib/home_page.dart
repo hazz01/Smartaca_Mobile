@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
@@ -25,6 +27,11 @@ class _HomePageState extends State<HomePage> {
   String light = 'Loading...';
   String lightOut = 'Loading...';
 
+  bool highlighTemperature = false;
+  bool highlighHumid = false;
+  bool highlighMoist = false;
+  bool highlighLight = false;
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +45,12 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           temperature = event.snapshot.value.toString();
           debugPrint("[Home] Temp: $temperature");
+          highlighTemperature = true;
+          Timer(const Duration(seconds: 2), () {
+            setState(() {
+              highlighTemperature = false;
+            });
+          });
         });
       } else {
         if (kDebugMode) {
@@ -50,6 +63,12 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           humid = event.snapshot.value.toString();
           debugPrint("[Home] Humid: $humid");
+          highlighHumid = true;
+          Timer(const Duration(seconds: 2), () {
+            setState(() {
+              highlighHumid = false;
+            });
+          });
         });
       } else {
         if (kDebugMode) {
@@ -62,6 +81,12 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           moist = event.snapshot.value.toString();
           debugPrint("[Home] Moist: $moist");
+          highlighMoist = true;
+          Timer(const Duration(seconds: 2), () {
+            setState(() {
+              highlighMoist = false;
+            });
+          });
         });
       } else {
         if (kDebugMode) {
@@ -79,6 +104,12 @@ class _HomePageState extends State<HomePage> {
           } else {
             lightOut = "Gelap";
           }
+          highlighLight = true;
+          Timer(const Duration(seconds: 2), () {
+            setState(() {
+              highlighLight = false;
+            });
+          });
         });
       } else {
         if (kDebugMode) {
@@ -184,6 +215,7 @@ class _HomePageState extends State<HomePage> {
                         iconColor: Colors.red,
                         title: 'Temperature',
                         value: temperature,
+                        highlight: highlighTemperature,
                       ),
                       _buildInfoCard(
                         width: blockWidth * 30,
@@ -192,6 +224,7 @@ class _HomePageState extends State<HomePage> {
                         iconColor: Colors.brown,
                         title: 'Lembap Tanah',
                         value: moist,
+                        highlight: highlighMoist,
                       ),
                       _buildInfoCard(
                         width: blockWidth * 30,
@@ -200,6 +233,7 @@ class _HomePageState extends State<HomePage> {
                         iconColor: Colors.lightBlue,
                         title: 'Lembap Udara',
                         value: humid,
+                        highlight: highlighHumid,
                       ),
                     ],
                   ),
@@ -214,6 +248,7 @@ class _HomePageState extends State<HomePage> {
                         iconColor: Colors.yellow,
                         title: 'Intens Cahaya',
                         value: lightOut,
+                        highlight: highlighLight,
                       ),
                       _buildInfoCard(
                         width: blockWidth * 30,
@@ -253,13 +288,13 @@ class _HomePageState extends State<HomePage> {
                         title: 'Umur',
                         value: '9 Hari',
                       ),
-                        GestureDetector(
+                      GestureDetector(
                         onTap: () {
                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Settings(),
-                          ),
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Settings(),
+                            ),
                           );
                         },
                         child: _buildInfoCard(
@@ -272,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                           backgroundColor: Colors.grey[400]!,
                           textColor: Colors.white,
                         ),
-                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -302,17 +337,19 @@ class _HomePageState extends State<HomePage> {
     Color? iconColor,
     required String title,
     required String value,
+    bool highlight = false,
     Color? valueColor,
     String? additionalTitle,
     String? additionalValue,
     Color backgroundColor = Colors.white,
     Color textColor = Colors.black,
   }) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(seconds: 1),
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: highlight ? Colors.blue.withOpacity(0.3) : backgroundColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -333,14 +370,18 @@ class _HomePageState extends State<HomePage> {
           RichText(
             text: TextSpan(
               text: title,
-              style: TextStyle(color: textColor),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: textColor),
             ),
           ),
           const SizedBox(height: 5),
           RichText(
             text: TextSpan(
               text: value,
-              style: TextStyle(color: valueColor ?? Colors.black54),
+              style: TextStyle(
+                  fontWeight: highlight ? FontWeight.bold : FontWeight.normal,
+                  color: valueColor ?? Colors.black54),
             ),
           ),
           if (additionalTitle != null && additionalValue != null) ...[
