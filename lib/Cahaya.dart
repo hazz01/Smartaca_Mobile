@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:smartaca_alpha_6/Cahaya.dart';
+import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:smartaca_alpha_6/home_page.dart';
 import 'package:smartaca_alpha_6/temperature.dart';
 import 'package:smartaca_alpha_6/vitamin.dart';
@@ -85,6 +86,7 @@ class _CahayaState extends State<Cahaya> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white, // Warna latar belakang AppBar
+        elevation: 0, // Menghilangkan bayangan pada AppBar
         title: const Padding(
           padding: EdgeInsets.only(bottom: 0),
           child: Text(
@@ -107,7 +109,11 @@ class _CahayaState extends State<Cahaya> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              // Tambahkan logika aksi untuk ikon akun di sini
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ));
             },
             icon: const Icon(
               Icons.settings,
@@ -115,6 +121,13 @@ class _CahayaState extends State<Cahaya> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Container(
+            color: Colors.black45, // Warna garis pada dasar AppBar
+            height: 1.0,
+          ),
+        ),
       ),
       body: Column(
         children: [

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:smartaca_alpha_6/SettingSawah.dart';
 import 'package:smartaca_alpha_6/Toko.dart';
+import 'package:smartaca_alpha_6/akun.dart';
 import 'package:smartaca_alpha_6/home_page.dart';
 import 'package:smartaca_alpha_6/iot.dart';
 import 'package:smartaca_alpha_6/setting_sawah.dart';
@@ -144,7 +145,8 @@ class _BottomNavBarRaisedInsetFb1State
           Center(
             heightFactor: 0.6,
             child: FloatingActionButton(
-                backgroundColor: widget.currentPage == 3 ? Colors.green : primaryColor,
+                backgroundColor:
+                    widget.currentPage == 3 ? Colors.green : Colors.grey,
                 child: const Icon(
                   Icons.home,
                 ),
@@ -185,7 +187,7 @@ class _BottomNavBarRaisedInsetFb1State
                   selectedColor: Colors.green,
                 ),
                 NavBarIcon(
-                  text: "Search",
+                  text: "Shop",
                   icon: Icons.local_grocery_store_outlined,
                   selected: widget.currentPage == 2,
                   onPressed: () {
@@ -222,7 +224,7 @@ class _BottomNavBarRaisedInsetFb1State
                     defaultColor: secondaryColor,
                     selectedColor: Colors.green),
                 NavBarIcon(
-                  text: "Calendar",
+                  text: "Account",
                   icon: Icons.account_circle_outlined,
                   selected: widget.currentPage == 5,
                   onPressed: () {
@@ -232,7 +234,8 @@ class _BottomNavBarRaisedInsetFb1State
                       PageRouteBuilder(
                         transitionDuration: Duration.zero,
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            const SettingSawah(),
+                            const
+                            akun(),
                       ),
                     );
                   },

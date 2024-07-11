@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:smartaca_alpha_6/main.dart';
 
 class Toko extends StatefulWidget {
@@ -16,6 +17,7 @@ class _TokoState extends State<Toko> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white, // Warna latar belakang AppBar
+        elevation: 0, // Menghilangkan bayangan pada AppBar
         title: const Padding(
           padding: EdgeInsets.only(bottom: 0),
           child: Text(
@@ -38,7 +40,11 @@ class _TokoState extends State<Toko> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              // Tambahkan logika aksi untuk ikon akun di sini
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ));
             },
             icon: const Icon(
               Icons.settings,
@@ -46,6 +52,13 @@ class _TokoState extends State<Toko> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Container(
+            color: Colors.black45, // Warna garis pada dasar AppBar
+            height: 1.0,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
