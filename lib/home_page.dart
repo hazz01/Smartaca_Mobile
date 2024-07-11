@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:smartaca_alpha_6/SettingSawah.dart';
 import 'package:smartaca_alpha_6/main.dart';
 import 'temperature.dart';
 
@@ -187,24 +188,27 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Home Page',
-          style: TextStyle(color: Colors.black),
+        backgroundColor: Colors.white, // Warna latar belakang AppBar
+        elevation: 0, // Menghilangkan bayangan pada AppBar
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 0),
+          child: Text(
+            'Home Page',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         ),
-        automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () {
-            setState(() {
-              currentPage = 3;
-            });
-          },
           icon: const Icon(
             Icons.notifications_none_outlined,
             color: Colors.black,
           ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -220,6 +224,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Container(
+            color: Colors.black45, // Warna garis pada dasar AppBar
+            height: 1.0,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -339,12 +350,15 @@ class _HomePageState extends State<HomePage> {
                         title: 'Umur',
                         value: '9 Hari',
                       ),
+                      SizedBox(
+                        height: 0,
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Settings(),
+                              builder: (context) => SettingInfoSawah(),
                             ),
                           );
                         },
@@ -421,9 +435,7 @@ class _HomePageState extends State<HomePage> {
           RichText(
             text: TextSpan(
               text: title,
-              style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: textColor),
+              style: TextStyle(fontWeight: FontWeight.normal, color: textColor),
             ),
           ),
           const SizedBox(height: 5),

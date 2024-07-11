@@ -9,6 +9,7 @@ import 'package:smartaca_alpha_6/temperature.dart';
 import 'package:smartaca_alpha_6/vitamin.dart';
 import 'package:smartaca_alpha_6/waterdischarge.dart';
 import 'main.dart';
+import 'Setting.dart';
 
 class WaterDischarge extends StatefulWidget {
   const WaterDischarge({Key? key}) : super(key: key);
@@ -91,6 +92,7 @@ class _WaterDischargeState extends State<WaterDischarge> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white, // Warna latar belakang AppBar
+        elevation: 0, // Menghilangkan bayangan pada AppBar
         title: const Padding(
           padding: EdgeInsets.only(bottom: 0),
           child: Text(
@@ -113,7 +115,11 @@ class _WaterDischargeState extends State<WaterDischarge> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              // Tambahkan logika aksi untuk ikon akun di sini
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ));
             },
             icon: const Icon(
               Icons.settings,
@@ -121,6 +127,13 @@ class _WaterDischargeState extends State<WaterDischarge> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Container(
+            color: Colors.black45, // Warna garis pada dasar AppBar
+            height: 1.0,
+          ),
+        ),
       ),
       body: Column(
         children: [
