@@ -15,91 +15,80 @@ class IoTDashboard extends StatefulWidget {
 
 class _IoTDashboardState extends State<IoTDashboard> {
   int currentPage = 1;
+  final PageController _pageController = PageController(initialPage: 1);
+
   List<Widget> pages = const [
     Temperature(),
     WaterDischarge(),
     Vitamin(),
     Cahaya(),
   ];
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      currentPage = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(child: PageView(
-            children: [pages[currentPage]],
-          )),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: onPageChanged,
+              children: pages,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // IconButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(builder: (context) => HomePage()),
-              //       );
-              //     },
-              //     icon: Icon(Icons.circle)),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      transitionDuration: Duration.zero,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const HomePage(),
-                    ),
-                  );
+                  _pageController.jumpToPage(0);
                 },
-                child: const Icon(Icons.circle, color: Colors.green,),
+                child: Icon(
+                  Icons.circle,
+                  color: currentPage == 0 ? Colors.green : Colors.black38,
+                ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      transitionDuration: Duration.zero,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const WaterDischarge(),
-                    ),
-                  );
+                  _pageController.jumpToPage(1);
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: Icon(
+                  Icons.circle,
+                  color: currentPage == 1 ? Colors.green : Colors.black38,
+                ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      transitionDuration: Duration.zero,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const HomePage(),
-                    ),
-                  );
+                  _pageController.jumpToPage(2);
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: Icon(
+                  Icons.circle,
+                  color: currentPage == 2 ? Colors.green : Colors.black38,
+                ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      transitionDuration: Duration.zero,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const Cahaya(),
-                    ),
-                  );
+                  _pageController.jumpToPage(3);
                 },
-                child: const Icon(Icons.circle, color: Colors.black38,),
+                child: Icon(
+                  Icons.circle,
+                  color: currentPage == 3 ? Colors.green : Colors.black38,
+                ),
               ),
             ],
           ),
@@ -108,9 +97,8 @@ class _IoTDashboardState extends State<IoTDashboard> {
       bottomNavigationBar: BottomNavBarRaisedInsetFb1(
         currentPage: currentPage,
         onPageChanged: (index) {
-          setState(() {
-            currentPage = index;
-          });
+          _pageController.jumpToPage(index);
+          onPageChanged(index);
         },
       ),
     );

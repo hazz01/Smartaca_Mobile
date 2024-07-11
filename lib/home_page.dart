@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:smartaca_alpha_6/main.dart';
+import 'package:smartaca_alpha_6/setting_sawah.dart';
 import 'temperature.dart';
 
 class HomePage extends StatefulWidget {
@@ -304,9 +305,9 @@ class _HomePageState extends State<HomePage> {
                       _buildInfoCard(
                         width: blockWidth * 30,
                         height: blockHeight * 20,
-                        icon: Icons.filter_list,
+                        icon: Icons.dataset,
                         iconColor: Colors.green,
-                        title: 'Luas Tanah',
+                        title: 'Jumlah Panen',
                         value: '-',
                       ),
                       _buildInfoCard(
@@ -344,7 +345,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Settings(),
+                              builder: (context) => SettingSawah(),
                             ),
                           );
                         },

@@ -44,6 +44,7 @@ dependencies:
   # firebase_database: ^10.3.7
   firebase_core: ^2.24.1
   firebase_database: ^10.3.8
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

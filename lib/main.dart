@@ -232,7 +232,7 @@ class _BottomNavBarRaisedInsetFb1State
                       PageRouteBuilder(
                         transitionDuration: Duration.zero,
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            const SettingInfoSawah(),
+                            const SettingSawah(),
                       ),
                     );
                   },
@@ -276,7 +276,7 @@ class NavBarIcon extends StatelessWidget {
           Icon(icon, color: selected ? selectedColor : defaultColor),
           Text(
             text,
-            style: TextStyle(color: selected ? selectedColor : defaultColor),
+            style: TextStyle(color: selected ? selectedColor : defaultColor, fontSize: 11),
           ),
         ],
       ),
