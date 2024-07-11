@@ -14,7 +14,7 @@ class IoTDashboard extends StatefulWidget {
 }
 
 class _IoTDashboardState extends State<IoTDashboard> {
-  int currentPage = 0;
+  int currentPage = 1;
   List<Widget> pages = const [
     Temperature(),
     WaterDischarge(),

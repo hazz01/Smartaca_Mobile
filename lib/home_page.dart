@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
-  int currentPage = 0;
+  int currentPage = 3;
 
   bool peltierPower = false;
 
@@ -31,6 +31,10 @@ class _HomePageState extends State<HomePage> {
   bool highlighHumid = false;
   bool highlighMoist = false;
   bool highlighLight = false;
+
+  String kondisi = 'Aman';
+  String penyebab = '-';
+  String solusi = '-';
 
   @override
   void initState() {
@@ -51,6 +55,7 @@ class _HomePageState extends State<HomePage> {
               highlighTemperature = false;
             });
           });
+          _updateKondisi();
         });
       } else {
         if (kDebugMode) {
@@ -69,6 +74,7 @@ class _HomePageState extends State<HomePage> {
               highlighHumid = false;
             });
           });
+          _updateKondisi();
         });
       } else {
         if (kDebugMode) {
@@ -87,6 +93,7 @@ class _HomePageState extends State<HomePage> {
               highlighMoist = false;
             });
           });
+          _updateKondisi();
         });
       } else {
         if (kDebugMode) {
@@ -130,6 +137,46 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
+  }
+
+  void _updateKondisi() {
+    double tempValue = double.tryParse(temperature) ?? 0;
+    double moistValue = double.tryParse(moist) ?? 0;
+    double humidValue = double.tryParse(humid) ?? 0;
+
+    bool tempCondition = tempValue < 25;
+    bool moistCondition = moistValue < 60;
+    bool humidCondition = humidValue < 8;
+
+    if (tempCondition && moistCondition && humidCondition) {
+      setState(() {
+        kondisi = 'Aman';
+        penyebab = '-';
+        solusi = '-';
+      });
+    } else if ((!tempCondition && moistCondition && humidCondition) ||
+        (tempCondition && !moistCondition && humidCondition) ||
+        (tempCondition && moistCondition && !humidCondition)) {
+      setState(() {
+        kondisi = 'Peringatan';
+        penyebab = !tempCondition
+            ? 'Suhu tinggi'
+            : !moistCondition
+                ? 'Kelembaban tanah rendah'
+                : 'Kelembaban udara rendah';
+        solusi = !tempCondition
+            ? 'Turunkan suhu'
+            : !moistCondition
+                ? 'Tingkatkan kelembaban tanah'
+                : 'Tingkatkan kelembaban udara';
+      });
+    } else {
+      setState(() {
+        kondisi = 'Bahaya';
+        penyebab = 'Banyak faktor yang tidak sesuai';
+        solusi = 'Periksa semua parameter';
+      });
+    }
   }
 
   @override
@@ -191,16 +238,20 @@ class _HomePageState extends State<HomePage> {
                         icon: Icons.circle,
                         iconColor: Colors.green,
                         title: 'Kondisi',
-                        value: 'Aman',
-                        valueColor: Colors.green,
+                        value: kondisi,
+                        valueColor: kondisi == 'Aman'
+                            ? Colors.green
+                            : kondisi == 'Peringatan'
+                                ? Colors.orange
+                                : Colors.red,
                       ),
                       _buildInfoCard(
                         width: blockWidth * 60,
                         height: blockHeight * 20,
                         title: 'Penyebab',
-                        value: '-',
+                        value: penyebab,
                         additionalTitle: 'Solusi',
-                        additionalValue: '-',
+                        additionalValue: solusi,
                       ),
                     ],
                   ),

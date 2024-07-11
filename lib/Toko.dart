@@ -9,7 +9,7 @@ class Toko extends StatefulWidget {
 }
 
 class _TokoState extends State<Toko> {
-  var currentPage = 1;
+  var currentPage = 2;
 
   @override
   Widget build(BuildContext context) {

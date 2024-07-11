@@ -21,7 +21,7 @@ class _CahayaState extends State<Cahaya> {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
   bool lampPower = false;
-  int currentPage = 0;
+  int currentPage = 1;
 
   String temperature = 'Loading...';
 

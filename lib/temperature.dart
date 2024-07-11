@@ -20,7 +20,7 @@ class _TemperatureState extends State<Temperature> {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
   bool peltierPower = false;
-  int currentPage = 0;
+  int currentPage = 1;
 
   String temperature = 'Loading...';
 

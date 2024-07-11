@@ -22,7 +22,7 @@ class _WaterDischargeState extends State<WaterDischarge> {
 
   bool peltierPower = false;
   bool pumpPower = false;
-  int currentPage = 0;
+  int currentPage = 1;
 
   String temperature = 'Loading...';
 

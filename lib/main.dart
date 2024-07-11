@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
+import 'package:smartaca_alpha_6/SettingSawah.dart';
 import 'package:smartaca_alpha_6/Toko.dart';
 import 'package:smartaca_alpha_6/home_page.dart';
 import 'package:smartaca_alpha_6/iot.dart';
@@ -115,33 +116,6 @@ class BottomNavBarRaisedInsetFb1 extends StatefulWidget {
 
 class _BottomNavBarRaisedInsetFb1State
     extends State<BottomNavBarRaisedInsetFb1> {
-  // int currentPage = 0;
-
-  //     void changePage(int index) {
-  //   setState(() {
-  //     currentPage = index;
-  //   });
-  // }
-
-  //- - - - - - - - - instructions - - - - - - - - - - - - - - - - - -
-  // WARNING! MUST ADD extendBody: true; TO CONTAINING SCAFFOLD
-  //
-  // Instructions:
-  //
-  // add this widget to the bottomNavigationBar property of a Scaffold, along with
-  // setting the extendBody parameter to true i.e:
-  //
-  // Scaffold(
-  //  extendBody: true,
-  //  bottomNavigationBar: BottomNavBarRaisedInsetFb1()
-  // )
-  //
-  // Properties such as color and height can be set by changing the properties at the top of the build method
-  //
-  // For help implementing this in a real app, watch https://www.youtube.com/watch?v=C0_3w0kd0nc. The style is different, but connecting it to navigation is the same.
-  //
-  //- - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - -
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -154,8 +128,6 @@ class _BottomNavBarRaisedInsetFb1State
 
     const shadowColor = Colors.grey; //color of Navbar shadow
     double elevation = 100; //Elevation of the bottom Navbar
-
-    print("currentPage: $widget.onPageChanged");
 
     return BottomAppBar(
       color: Colors.transparent,
@@ -172,15 +144,13 @@ class _BottomNavBarRaisedInsetFb1State
           Center(
             heightFactor: 0.6,
             child: FloatingActionButton(
-                backgroundColor: primaryColor,
+                backgroundColor: widget.currentPage == 3 ? Colors.green : primaryColor,
                 child: const Icon(
                   Icons.home,
                 ),
                 elevation: 0.1,
                 onPressed: () {
-                  setState(() {
-                    widget.onPageChanged == 1;
-                  });
+                  widget.onPageChanged(3);
                   Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -199,12 +169,9 @@ class _BottomNavBarRaisedInsetFb1State
                 NavBarIcon(
                   text: "Home",
                   icon: Icons.donut_small_sharp,
-                  selected: widget.onPageChanged == 1,
+                  selected: widget.currentPage == 1,
                   onPressed: () {
-                    setState(() {
-                      // print("currentPage: $widget.onPageChanged");
-                      widget.onPageChanged == 1;
-                    });
+                    widget.onPageChanged(1);
                     Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -215,37 +182,33 @@ class _BottomNavBarRaisedInsetFb1State
                     );
                   },
                   defaultColor: secondaryColor,
-                  selectedColor: primaryColor,
+                  selectedColor: Colors.green,
                 ),
                 NavBarIcon(
                   text: "Search",
                   icon: Icons.local_grocery_store_outlined,
-                  selected: widget.onPageChanged == 2,
+                  selected: widget.currentPage == 2,
                   onPressed: () {
-                    setState(() {
-                      widget.onPageChanged == 2;
-                    });
+                    widget.onPageChanged(2);
                     Navigator.push(
                       context,
                       PageRouteBuilder(
                         transitionDuration: Duration.zero,
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            Toko(),
+                            const Toko(),
                       ),
                     );
                   },
                   defaultColor: secondaryColor,
-                  selectedColor: primaryColor,
+                  selectedColor: Colors.green,
                 ),
                 const SizedBox(width: 56),
                 NavBarIcon(
                     text: "Cart",
                     icon: Icons.notifications_none,
-                    selected: widget.onPageChanged == 4,
+                    selected: widget.currentPage == 4,
                     onPressed: () {
-                      setState(() {
-                        widget.onPageChanged == 1;
-                      });
+                      widget.onPageChanged(4);
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -257,25 +220,23 @@ class _BottomNavBarRaisedInsetFb1State
                       );
                     },
                     defaultColor: secondaryColor,
-                    selectedColor: primaryColor),
+                    selectedColor: Colors.green),
                 NavBarIcon(
                   text: "Calendar",
                   icon: Icons.account_circle_outlined,
-                  selected: widget.onPageChanged == 5,
+                  selected: widget.currentPage == 5,
                   onPressed: () {
-                    setState(() {
-                      widget.onPageChanged == 1;
-                    });
+                    widget.onPageChanged(5);
                     Navigator.push(
                       context,
                       PageRouteBuilder(
                         transitionDuration: Duration.zero,
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            Settings(),
+                            const SettingInfoSawah(),
                       ),
                     );
                   },
-                  selectedColor: primaryColor,
+                  selectedColor: Colors.green,
                   defaultColor: secondaryColor,
                 )
               ],
@@ -287,81 +248,91 @@ class _BottomNavBarRaisedInsetFb1State
   }
 }
 
-class BottomNavCurvePainter extends CustomPainter {
-  BottomNavCurvePainter(
-      {this.backgroundColor = Colors.white,
-      this.insetRadius = 38,
-      this.shadowColor = Colors.grey,
-      this.elevation = 100});
+class NavBarIcon extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final bool selected;
+  final VoidCallback onPressed;
+  final Color defaultColor;
+  final Color selectedColor;
 
-  Color backgroundColor;
-  Color shadowColor;
-  double elevation;
-  double insetRadius;
+  const NavBarIcon({
+    Key? key,
+    required this.text,
+    required this.icon,
+    required this.selected,
+    required this.onPressed,
+    required this.defaultColor,
+    required this.selectedColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: selected ? selectedColor : defaultColor),
+          Text(
+            text,
+            style: TextStyle(color: selected ? selectedColor : defaultColor),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomNavCurvePainter extends CustomPainter {
+  final Color backgroundColor;
+  final Color shadowColor;
+  final double elevation;
+
+  BottomNavCurvePainter({
+    required this.backgroundColor,
+    required this.shadowColor,
+    required this.elevation,
+  });
+
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = backgroundColor
-      ..style = PaintingStyle.fill;
-    Path path = Path();
+    final Paint paint = Paint()..color = backgroundColor;
+    final Path path = Path();
 
-    double insetCurveBeginnningX = size.width / 2 - insetRadius;
-    double insetCurveEndX = size.width / 2 + insetRadius;
-
-    path.lineTo(insetCurveBeginnningX, 0);
-    path.arcToPoint(Offset(insetCurveEndX, 0),
-        radius: Radius.circular(41), clockwise: true);
-
+    // Draw the custom bottom navigation bar curve
+    path.lineTo(size.width * 0.35, 0);
+    path.quadraticBezierTo(
+      size.width * 0.40,
+      0,
+      size.width * 0.40,
+      20,
+    );
+    path.arcToPoint(
+      Offset(size.width * 0.60, 20),
+      radius: const Radius.circular(20),
+      clockwise: false,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.60,
+      0,
+      size.width * 0.65,
+      0,
+    );
     path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
 
-    path.lineTo(size.width, size.height + 56);
-    path.lineTo(
-        0,
-        size.height +
-            56); //+56 here extends the navbar below app bar to include extra space on some screens (iphone 11)
+    // Draw shadow
     canvas.drawShadow(path, shadowColor, elevation, true);
+
+    // Draw path
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
-  }
-}
-
-class NavBarIcon extends StatelessWidget {
-  const NavBarIcon(
-      {Key? key,
-      required this.text,
-      required this.icon,
-      required this.selected,
-      required this.onPressed,
-      this.selectedColor = const Color(0xffFF8527),
-      this.defaultColor = Colors.black54})
-      : super(key: key);
-  final String text;
-  final IconData icon;
-  final bool selected;
-  final Function() onPressed;
-  final Color defaultColor;
-  final Color selectedColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          onPressed: onPressed,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          icon: Icon(
-            icon,
-            size: 25,
-            color: selected ? selectedColor : defaultColor,
-          ),
-        ),
-      ],
-    );
   }
 }

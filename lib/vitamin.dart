@@ -21,7 +21,7 @@ class _VitaminState extends State<Vitamin> {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
   bool peltierPower = false;
-  int currentPage = 0;
+  int currentPage = 1;
 
   String temperature = 'Loading...';
 
