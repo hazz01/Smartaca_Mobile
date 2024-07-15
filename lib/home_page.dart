@@ -6,8 +6,14 @@ import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:smartaca_alpha_6/SettingSawah.dart';
 import 'package:smartaca_alpha_6/main.dart';
+import 'package:smartaca_alpha_6/Noti.dart';
 import 'package:smartaca_alpha_6/setting_sawah.dart';
 import 'temperature.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'Noti.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Noti.initialize(flutterLocalNotificationsPlugin);
     final temperatureRef = database.reference().child('Smartaca/Suhu');
     final humidRef = database.reference().child('Smartaca/SoilPercent');
     final moistRef = database.reference().child('Device1/Moist');
@@ -52,6 +59,15 @@ class _HomePageState extends State<HomePage> {
           temperature = event.snapshot.value.toString();
           debugPrint("[Home] Temp: $temperature");
           highlighTemperature = true;
+          var temperatureInt = int.parse(event.snapshot.value.toString());
+          if (temperatureInt > 25) {
+            debugPrint("testing");
+            Noti.showBigTextNotification(
+                title: "awas suhu tinggi",
+                body: "rumah kaca mu sudah mencapai suhu $temperatureInt",
+                fln: flutterLocalNotificationsPlugin);
+          }
+
           Timer(const Duration(seconds: 2), () {
             setState(() {
               highlighTemperature = false;
@@ -141,6 +157,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // void notifikas() {
+  //   Noti.showBigTextNotification(
+  //       title: "New message title",
+  //       body: "Your long body",
+  //       fln: flutterLocalNotificationsPlugin);
+  // }
+
   void _updateKondisi() {
     double tempValue = double.tryParse(temperature) ?? 0;
     double moistValue = double.tryParse(moist) ?? 0;
@@ -174,11 +197,24 @@ class _HomePageState extends State<HomePage> {
       });
     } else {
       setState(() {
-        kondisi = 'Bahaya';
-        penyebab = 'Banyak faktor yang tidak sesuai';
-        solusi = 'Periksa semua parameter';
+        kondisi = 'Peringatan';
+        penyebab = 'Suhu tinggi';
+        solusi = 'Periksa pendingin';
       });
     }
+
+    // if (!tempCondition) {
+    //   try {
+    //     debugPrint("testing");
+    //     Noti.showBigTextNotification(
+    //         title: "New message title",
+    //         body: "Your long body",
+    //         fln: flutterLocalNotificationsPlugin);
+    //     // notifikas();
+    //   } catch (e) {
+    //     debugPrint("Notif Error: $e");
+    //   }
+    // }
   }
 
   @override

@@ -9,6 +9,7 @@ import 'package:smartaca_alpha_6/vitamin.dart';
 import 'package:smartaca_alpha_6/waterdischarge.dart';
 import 'main.dart';
 import 'Setting.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Temperature extends StatefulWidget {
   const Temperature({Key? key}) : super(key: key);

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:smartaca_alpha_6/SettingSawah.dart';
 import 'package:smartaca_alpha_6/Toko.dart';
@@ -13,6 +14,7 @@ import 'package:smartaca_alpha_6/waterdischarge.dart';
 import 'firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +27,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  @override
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -234,8 +236,7 @@ class _BottomNavBarRaisedInsetFb1State
                       PageRouteBuilder(
                         transitionDuration: Duration.zero,
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            const
-                            akun(),
+                            const akun(),
                       ),
                     );
                   },
@@ -279,7 +280,8 @@ class NavBarIcon extends StatelessWidget {
           Icon(icon, color: selected ? selectedColor : defaultColor),
           Text(
             text,
-            style: TextStyle(color: selected ? selectedColor : defaultColor, fontSize: 11),
+            style: TextStyle(
+                color: selected ? selectedColor : defaultColor, fontSize: 11),
           ),
         ],
       ),
