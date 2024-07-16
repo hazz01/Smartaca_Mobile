@@ -4,7 +4,7 @@ class Noti {
   static Future initialize(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize =
-        new AndroidInitializationSettings('mipmap/ic_launcher');
+        new AndroidInitializationSettings('mipmap/ic_launcher2');
 
     var initializationSettings =
         new InitializationSettings(android: androidInitialize);
