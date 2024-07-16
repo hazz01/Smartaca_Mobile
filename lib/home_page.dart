@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:smartaca_alpha_6/Setting.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:smartaca_alpha_6/SettingSawah.dart';
+import 'package:smartaca_alpha_6/historNotif.dart';
 import 'package:smartaca_alpha_6/main.dart';
 import 'package:smartaca_alpha_6/Noti.dart';
 import 'package:smartaca_alpha_6/setting_sawah.dart';
@@ -59,12 +60,12 @@ class _HomePageState extends State<HomePage> {
           temperature = event.snapshot.value.toString();
           debugPrint("[Home] Temp: $temperature");
           highlighTemperature = true;
+
           var temperatureInt = int.parse(event.snapshot.value.toString());
           if (temperatureInt > 25) {
-            debugPrint("testing");
             Noti.showBigTextNotification(
                 title: "awas suhu tinggi",
-                body: "rumah kaca mu sudah mencapai suhu $temperatureInt",
+                body: "rumah kaca mu sudah mencapai suhu $temperatureInt°",
                 fln: flutterLocalNotificationsPlugin);
           }
 
@@ -87,6 +88,23 @@ class _HomePageState extends State<HomePage> {
           humid = event.snapshot.value.toString();
           debugPrint("[Home] Humid: $humid");
           highlighHumid = true;
+
+          // var humidInt = int.parse(event.snapshot.value.toString());
+          // if (humidInt > 60) {
+          //   Noti.showBigTextNotification(
+          //       title: "awas lembap tanah naik",
+          //       body: "kelembapan tanah di rumah kaca naik $humidInt",
+          //       fln: flutterLocalNotificationsPlugin);
+          // }
+
+          var humidInt = int.parse(event.snapshot.value.toString());
+          if (humidInt > 5) {
+            Noti.showBigTextNotification(
+                title: "awas lembap tanah naik",
+                body: "kelembapan tanah di rumah kaca naik $humidInt",
+                fln: flutterLocalNotificationsPlugin);
+          }
+
           Timer(const Duration(seconds: 2), () {
             setState(() {
               highlighHumid = false;
@@ -106,6 +124,23 @@ class _HomePageState extends State<HomePage> {
           moist = event.snapshot.value.toString();
           debugPrint("[Home] Moist: $moist");
           highlighMoist = true;
+
+          // var moistInt = int.parse(event.snapshot.value.toString());
+          // if (moistInt > 5) {
+          //   Noti.showBigTextNotification(
+          //       title: "awas lembap udara naik",
+          //       body: "kelembapan udara di rumah kaca naik $moistInt",
+          //       fln: flutterLocalNotificationsPlugin);
+          // }
+
+          var moistInt = int.parse(event.snapshot.value.toString());
+          if (moistInt > 60) {
+            Noti.showBigTextNotification(
+                title: "awas lembap udara naik",
+                body: "kelembapan udara di rumah kaca naik $moistInt",
+                fln: flutterLocalNotificationsPlugin);
+          }
+
           Timer(const Duration(seconds: 2), () {
             setState(() {
               highlighMoist = false;
@@ -242,7 +277,11 @@ class _HomePageState extends State<HomePage> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HistoryPage(),
+                ));
           },
         ),
         centerTitle: true,

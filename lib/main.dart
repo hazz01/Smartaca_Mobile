@@ -58,6 +58,7 @@ class _RootPageState extends State<RootPage> {
 
   FirebaseDatabase database = FirebaseDatabase.instance;
   String temperature = 'Loading...';
+
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
