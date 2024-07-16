@@ -64,21 +64,7 @@ class HistoryPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: notificationsHistory.length,
-        itemBuilder: (context, index) {
-          final notification = notificationsHistory[index];
-          return ListTile(
-            title: Text(notification.title),
-            subtitle: Text(notification.body),
-            trailing: Text(notification.timestamp.toString()),
-          );
-        },
-      ),
+      body: Column(),
     );
   }
 }
-
-// Step 4: Navigate to HistoryPage (add this in your main page or wherever you want to navigate from)
-// Use Navigator.push to navigate to HistoryPage
-// Example: Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage()));
