@@ -35,6 +35,11 @@ class _HomePageState extends State<HomePage> {
   String light = 'Loading...';
   String lightOut = 'Loading...';
 
+  int previousTemperature = 0;
+  int previousHumid = 0;
+  int previousMoist = 0;
+  int previousLight = 0;
+
   bool highlighTemperature = false;
   bool highlighHumid = false;
   bool highlighMoist = false;
@@ -43,6 +48,7 @@ class _HomePageState extends State<HomePage> {
   String kondisi = 'Aman';
   String penyebab = '-';
   String solusi = '-';
+
 
   @override
   void initState() {
@@ -53,6 +59,10 @@ class _HomePageState extends State<HomePage> {
     final moistRef = database.reference().child('Device1/Moist');
     final lightRef = database.reference().child('Smartaca/StatusCahaya');
 
+    debugPrint("[ADC] Temperature: $temperature");
+    
+
+
     temperatureRef.onValue.listen((event) {
       if (event.snapshot.exists) {
         setState(() {
@@ -60,13 +70,17 @@ class _HomePageState extends State<HomePage> {
           debugPrint("[Home] Temp: $temperature");
           highlighTemperature = true;
           var temperatureInt = int.parse(event.snapshot.value.toString());
-          if (temperatureInt > 25) {
+
+          bool highTemp = temperatureInt > 25;
+          if (highTemp && previousTemperature < temperatureInt) {
             debugPrint("testing");
             Noti.showBigTextNotification(
-                title: "awas suhu tinggi",
-                body: "rumah kaca mu sudah mencapai suhu $temperatureInt",
+                title: "Awas Suhu Tinggi",
+                body: "Rumah Kaca Anda Sudah Mencapai Suhu $temperatureInt°C",
                 fln: flutterLocalNotificationsPlugin);
-          }
+          } 
+
+          previousTemperature = temperatureInt;
 
           Timer(const Duration(seconds: 2), () {
             setState(() {
@@ -87,6 +101,26 @@ class _HomePageState extends State<HomePage> {
           humid = event.snapshot.value.toString();
           debugPrint("[Home] Humid: $humid");
           highlighHumid = true;
+
+          // var humidInt = int.parse(event.snapshot.value.toString());
+          // if (humidInt > 60) {
+          //   Noti.showBigTextNotification(
+          //       title: "awas lembap tanah naik",
+          //       body: "kelembapan tanah di rumah kaca naik $humidInt",
+          //       fln: flutterLocalNotificationsPlugin);
+          // }
+
+          var humidInt = int.parse(event.snapshot.value.toString());
+          
+          if (humidInt > 5 && previousHumid < humidInt) {
+            Noti.showBigTextNotification(
+                title: "Awas Kelembapan Tanah Naik",
+                body: "Kelembapan Tanah di Rumah Anda mencapai $humidInt%",
+                fln: flutterLocalNotificationsPlugin);
+          }
+
+          previousHumid = humidInt;
+
           Timer(const Duration(seconds: 2), () {
             setState(() {
               highlighHumid = false;
@@ -106,35 +140,31 @@ class _HomePageState extends State<HomePage> {
           moist = event.snapshot.value.toString();
           debugPrint("[Home] Moist: $moist");
           highlighMoist = true;
+
+          // var moistInt = int.parse(event.snapshot.value.toString());
+          // if (moistInt > 5) {
+          //   Noti.showBigTextNotification(
+          //       title: "awas lembap udara naik",
+          //       body: "kelembapan udara di rumah kaca naik $moistInt",
+          //       fln: flutterLocalNotificationsPlugin);
+          // }
+
+          var moistInt = int.parse(event.snapshot.value.toString());
+          if (moistInt > 60 && previousMoist < moistInt) {
+            Noti.showBigTextNotification(
+                title: "Awas Lembap Udara Naik",
+                body: "Kelembapan Udara di Rumah Anda Naik $moistInt%",
+                fln: flutterLocalNotificationsPlugin);
+          }
+
+          previousMoist = moistInt;
+
           Timer(const Duration(seconds: 2), () {
             setState(() {
               highlighMoist = false;
             });
           });
           _updateKondisi();
-        });
-      } else {
-        if (kDebugMode) {
-          print('No Data Available.');
-        }
-      }
-    });
-    lightRef.onValue.listen((event) {
-      if (event.snapshot.exists) {
-        setState(() {
-          light = event.snapshot.value.toString();
-          debugPrint("[Home] Light: $light");
-          if (light == '1') {
-            lightOut = "Terang";
-          } else {
-            lightOut = "Gelap";
-          }
-          highlighLight = true;
-          Timer(const Duration(seconds: 2), () {
-            setState(() {
-              highlighLight = false;
-            });
-          });
         });
       } else {
         if (kDebugMode) {
