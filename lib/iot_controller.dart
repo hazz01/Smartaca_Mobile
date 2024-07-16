@@ -65,7 +65,6 @@ class IoTController {
         Uri.parse('https://api.openai.com/v1/completions'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer sk-None-lQkSWy34NC1MUufbv0SpT3BlbkFJC0UVd8GJIp82Y85bXoH0',
         },
         body: jsonEncode({
           'model': 'text-davinci-003',
